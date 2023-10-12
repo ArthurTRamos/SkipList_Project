@@ -15,8 +15,28 @@ struct skiplist_ {
     NO* upleft;
 };
 
-SKIPLIST* skip_criar(void) {
-
+SKIPLIST* skip_criar() {
+    SKIPLIST *sl = (SKIPLIST*) malloc(sizeof(SKIPLIST));
+    sl->levelAtual = 0;
+    sl->levelmax = LEVEL_MAX;
+    
+    NO* x = (NO*) malloc(sizeof(NO));
+    sl->upleft = x;
+    
+    for(int i = sl->levelmax; i >= 0; --i) {
+        x->item = item_criar("-1", "-1");
+        x->nivel = i;
+        x->proximo = NULL;
+        if(i == 0) {
+            x->baixo = NULL;
+        } else {
+            NO* y = (NO*) malloc(sizeof(NO));
+            x->baixo = y;
+            x = y;
+        }
+    }
+    
+    return(sl);
 }
 
 void skip_inserir(ITEM* item, SKIPLIST* skiplist) {
@@ -73,8 +93,21 @@ void skip_imprimir(char ch, SKIPLIST* skiplist) {
 
 }
 
-int skip_vazia(SKIPLIST* skiplist) {
+int skip_vazia(SKIPLIST* sl) {
+    if(sl == NULL) {
+        return 1;
+    }
 
+    NO* aux = sl->upleft;
+    while(aux->baixo != NULL) {
+        aux = aux->baixo;
+    }
+
+    if(aux->proximo == NULL) {
+        return 1;
+    }
+    
+    return 0;
 }
 
 int skip_cheia(SKIPLIST* skiplist) {
@@ -111,6 +144,16 @@ void skip_apagar(SKIPLIST** skiplist) {
     }
 }
 
-int gerar_nivel(int level_max) {
-
+int gerar_nivel() {
+    srand(time(0));
+    int lvl = 0;
+    
+    while(lvl < LEVEL_MAX) {
+        if(rand()%2) {
+            ++lvl;
+        } else {
+            break;
+        }
+    }
+    return(lvl);
 }
