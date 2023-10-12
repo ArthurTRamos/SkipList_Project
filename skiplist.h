@@ -1,6 +1,7 @@
 #ifndef SKIPLIST_H
 	#define SKIPLIST_H
-	
+
+	#define LEVEL_MAX 4	
 	#include "item.h"
 
 	typedef struct skiplist_ SKIPLIST;
