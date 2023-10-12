@@ -90,7 +90,56 @@ ITEM* skip_busca(char* verbete, SKIPLIST* skiplist) {
 }
 
 void skip_imprimir(char ch, SKIPLIST* skiplist) {
+    NO* carry = skiplist->upleft;
+    NO* aux;
+    int achado = 0;
 
+    while(carry != NULL) {
+        while(carry->proximo != NULL) {
+
+            if(item_get_verbete(carry->proximo->item)[0] == ch) {
+                if(carry->baixo == NULL) {
+                    achado = 1;
+                    break;
+                }
+                carry = carry->baixo;
+            }
+
+            if(item_get_verbete(carry->proximo->item)[0] > ch) {
+                if(carry->baixo == NULL) {
+                    break;
+                }
+                carry = carry->baixo;
+            }
+
+            carry = carry->proximo;
+        }
+
+        if(achado == 1) {
+            break;
+        }
+
+        if(carry->baixo == NULL) {
+            printf("erro");
+            exit(1);
+        }
+
+        aux = skiplist->upleft->baixo;
+        while(aux->nivel != carry->nivel - 1) {
+            aux = aux->baixo;
+        }
+        carry = aux;
+    }
+
+
+    while(carry->proximo != NULL) {
+        if((item_get_verbete(carry->proximo->item))[0] == ch) {
+            item_imprimir_completo(carry->proximo->item);
+        } else {
+            break;
+        }
+        carry = carry->proximo;
+    }
 }
 
 int skip_vazia(SKIPLIST* sl) {
