@@ -8,7 +8,7 @@ struct item_ {
 ITEM *item_criar(char* verbete, char* definicao) {
     ITEM* item;
 
-    item = (ITEM*) malloc(sizeof(item));
+    item = (ITEM*) malloc(sizeof(ITEM));
     if(item != NULL) {
         strcpy(item->verbete, verbete);
         strcpy(item->definicao, definicao);
