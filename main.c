@@ -56,7 +56,6 @@ int main(void) {
     }
 
     skip_apagar(&skiplist);
-    skiplist = NULL;
     
    return 0;
 }
