@@ -44,6 +44,13 @@ char* item_get_verbete(ITEM *item) {
     return NULL;
 }
 
+char* item_get_definicao(ITEM* item) {
+    if(item != NULL)
+        return(item->definicao);
+    return NULL;
+}
+
+
 
 int item_set_definicao(ITEM *item, char* definicao) {
     if(item != NULL) {
