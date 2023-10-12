@@ -13,6 +13,7 @@
 	void item_imprimir_completo(ITEM *item);
 	void item_imprimir_definicao(ITEM *item);
 	char* item_get_verbete(ITEM *item);
+    char* item_get_definicao(ITEM *item);
 	int item_set_definicao(ITEM *item, char* definicao);
 
 #endif
