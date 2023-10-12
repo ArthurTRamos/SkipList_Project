@@ -15,6 +15,6 @@
     int skip_vazia(SKIPLIST* skiplist);
     int skip_cheia(SKIPLIST* skiplist);
     void skip_apagar(SKIPLIST** skiplist);
-    int gerar_nivel(int level_max);
+    int gerar_nivel();
 
 #endif
