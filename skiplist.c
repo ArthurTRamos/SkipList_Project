@@ -88,7 +88,27 @@ int skip_cheia(SKIPLIST* skiplist) {
 }
 
 void skip_apagar(SKIPLIST** skiplist) {
+    if(skiplist != NULL) {
+        NO* aux;
+        NO* atual;
 
+        while((*skiplist)->upleft != NULL) {
+            while(atual != NULL) {
+                aux = (*skiplist)->upleft->proximo;
+                atual = aux->proximo;
+
+                free(aux);
+            
+                aux = atual;
+                atual = atual->proximo;
+            }
+            free(aux);
+            aux = NULL;
+        }
+        
+        free(*skiplist);
+        *skiplist = NULL;
+    }
 }
 
 int gerar_nivel(int level_max) {
