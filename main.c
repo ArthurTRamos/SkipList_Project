@@ -6,6 +6,7 @@ int main(void) {
     SKIPLIST* skiplist;
 
     skiplist = skip_criar();
+
     if(skiplist != NULL) {
         while(1) {
             if(scanf("%s", operacao) == EOF)
@@ -37,15 +38,20 @@ int main(void) {
             }
             if(strcmp(operacao, "remocao") == 0) {
                 scanf("%s", verbete);
-                skip_remover(verbete, skiplist);
+                int condicao = skip_remover(verbete, skiplist);
+
+                if(condicao == 0)
+                    printf("OPERACO INVALIDA\n");
             }
             if(strcmp(operacao, "busca") == 0) {
                 scanf("%s", verbete);
                 ITEM* item = skip_busca(verbete, skiplist);
                 if(item == NULL)
-                    printf("OPERACAO INVALIDA");
-                else
+                    printf("OPERACAO INVALIDA\n");
+                else {
                     item_imprimir_definicao(item);
+                    printf("\n");
+                }
             }
             if(strcmp(operacao, "impressao") == 0) {
                 scanf("%c", &ch);
@@ -56,6 +62,6 @@ int main(void) {
     }
 
     skip_apagar(&skiplist);
-    
+
    return 0;
 }
