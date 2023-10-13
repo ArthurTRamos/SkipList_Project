@@ -1,4 +1,4 @@
-#include "item.h"
+#include "item_skip.h"
 
 struct item_ {
     char verbete[51];
@@ -27,7 +27,7 @@ int item_apagar(ITEM** item) {
 
 void item_imprimir_completo(ITEM *item) {
     if(item != NULL) {
-        printf("%s %s", item->verbete, item->definicao);
+        printf("%s %s\n", item->verbete, item->definicao);
     }
 }
 
@@ -49,8 +49,6 @@ char* item_get_definicao(ITEM* item) {
         return(item->definicao);
     return NULL;
 }
-
-
 
 int item_set_definicao(ITEM *item, char* definicao) {
     if(item != NULL) {
