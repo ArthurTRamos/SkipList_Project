@@ -39,8 +39,60 @@ SKIPLIST* skip_criar() {
     return(sl);
 }
 
-void skip_inserir(ITEM* item, SKIPLIST* skiplist) {
+int skip_inserir(ITEM* item, SKIPLIST* skiplist) {
 
+    if((skiplist == NULL)/* || (skip_cheia(skiplist) == 1)*/) {
+        printf("Erro\n");
+        return 0;
+    }
+
+    NO** prox = (NO**) malloc(LEVEL_MAX * sizeof(NO*));
+    NO* sentinela = skiplist->upleft;
+
+    while(sentinela->nivel != 0) {
+        if(sentinela->proximo != NULL) {
+            while(strcmp(item_get_verbete(sentinela->proximo->item), item_get_verbete(item)) < 0) {}
+                sentinela = sentinela->proximo;
+        }
+        prox[sentinela->nivel] = sentinela->proximo;
+        sentinela = sentinela->baixo;
+    }
+
+    if(sentinela->proximo != NULL) {
+        while(strcmp(item_get_verbete(sentinela->proximo->item), item_get_verbete(item)) < 0)
+            sentinela = sentinela->proximo;
+    }
+
+    prox[sentinela->nivel] = sentinela->proximo;
+    if(sentinela->proximo != NULL) {
+        if(strcmp(item_get_verbete(sentinela->proximo->item), item_get_verbete(item)) == 0) {
+            printf("Erro\n");
+            return 0;
+        }
+    }
+
+    NO* new = (NO*) malloc(sizeof(NO));
+
+    for(int i = 0; i >= 0; --i) {
+        new->item = item;
+        new->nivel = i;
+        new->proximo = prox[i];
+
+        while(sentinela->nivel != i) {
+            sentinela = sentinela->baixo;
+        }
+        sentinela->proximo = new;
+
+        if(i == 0) {
+            new->baixo = NULL;
+        } else {
+            NO* y = (NO*) malloc(sizeof(NO));
+            new->baixo = y;
+            new = y;
+        }
+    }
+
+    return 1;
 }
 
 int skip_alterar(ITEM* item, SKIPLIST* skiplist) {
